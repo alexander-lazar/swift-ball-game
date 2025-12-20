@@ -17,9 +17,14 @@ class GameScene: SKScene {
     var moveRight: Bool = false
     var moveUp: Bool = false
     var moveDown: Bool = false
+    var arrowLeft: Bool = false
+    var arrowRight: Bool = false
+    var arrowUp: Bool = false
+    var arrowDown: Bool = false
     
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.backgroundColor = .green
         self.view?.window?.makeFirstResponder(self)
         
         let radius: CGFloat = 20
@@ -34,15 +39,101 @@ class GameScene: SKScene {
         let indicatorRadius: CGFloat = 10
     
         indicator = SKShapeNode(circleOfRadius: indicatorRadius)
-        indicator.fillColor = .green
+        indicator.fillColor = NSColor(
+            red: 0.0,
+            green: 0.4,
+            blue: 0.0,
+            alpha: 1.0
+        )
         indicator.strokeColor = .clear
-        indicator.position = CGPoint(x: 0, y: 0)
+        //indicator.position = CGPoint(x: 0, y: 0)
         indicator.isHidden = true
         addChild(indicator)
         //let halfWidth = size.width / 2
         //let halfHeight = size.height / 2
-    }
         
+        let squareSize: CGFloat = 25
+        let greenSquare = SKShapeNode(
+            rectOf: CGSize(width: squareSize, height: squareSize)
+        )
+        greenSquare.fillColor = indicator.fillColor
+        greenSquare.strokeColor = .clear
+        
+        let halfWidth = size.width / 2
+        let halfHeight = size.height / 2
+        
+        let x = -halfWidth / 16 * 3
+        let y = halfHeight / 5 * 2
+            
+        greenSquare.position = CGPoint(x: x, y: y)
+        addChild(greenSquare)
+        
+        let spawnSquareSize: CGFloat = 10
+        
+        let spawnSquare = SKShapeNode(
+            rectOf: CGSize(width: spawnSquareSize, height: spawnSquareSize)
+        )
+        
+        spawnSquare.fillColor = NSColor(
+            red: 0.4,
+            green: 0.25,
+            blue: 0.1,
+            alpha: 1.0
+        )
+        spawnSquare.strokeColor = .clear
+        spawnSquare.position = CGPoint(x: 0, y: 0)
+        
+        addChild(spawnSquare)
+        
+        let stump = SKNode()
+        stump.position = CGPoint(x: 0, y: 0)
+        addChild(stump)
+        
+        let trunkWidth: CGFloat = 30
+        let trunkHeight: CGFloat = 20
+        
+        let trunkSide = SKShapeNode(
+                rectOf: CGSize(width: trunkWidth, height: trunkHeight),
+                cornerRadius: 3
+        )
+        
+        trunkSide.fillColor = NSColor(
+            red: 0.45,
+            green: 0.3,
+            blue: 0.15,
+            alpha: 1.0
+        )
+        trunkSide.strokeColor = .clear
+        
+        trunkSide.position = CGPoint(x: 0, y: -10)
+        stump.addChild(trunkSide)
+        
+        let top = SKShapeNode(
+                rectOf: CGSize(width: trunkWidth, height: 10),
+                cornerRadius: 5
+        )
+        
+        top.fillColor = trunkSide.fillColor
+        top.strokeColor = .clear
+        
+        top.position = CGPoint(x: 0, y: 2)
+        stump.addChild(top)
+        
+        let rootWidth: CGFloat = 6
+        let rootHeight: CGFloat = 8
+        
+        for offsttX in [-10, 0, 10] {
+            let root = SKShapeNode(
+                    rectOf: CGSize(width: rootWidth, height: rootHeight),
+                    cornerRadius: 2
+            )
+            root.fillColor = trunkSide.fillColor
+            root.strokeColor = .clear
+            root.position = CGPoint(x: CGFloat(offsttX), y: -22)
+            
+            stump.addChild(root)
+        }
+    }
     override func keyDown(with event: NSEvent) {
         switch event.charactersIgnoringModifiers?.lowercased() {
         case "a":
@@ -53,6 +144,18 @@ class GameScene: SKScene {
             moveUp = true
         case "s":
             moveDown = true
+        default:
+            break
+        }
+        switch event.keyCode {
+        case 123:
+            arrowLeft = true
+        case 124:
+            arrowRight = true
+        case 126:
+            arrowUp = true
+        case 125:
+            arrowDown = true
         default:
             break
         }
@@ -70,6 +173,18 @@ class GameScene: SKScene {
         default:
             break
         }
+        switch event.keyCode {
+        case 123:
+            arrowLeft = false
+        case 124:
+            arrowRight = false
+        case 126:
+            arrowUp = false
+        case 125:
+            arrowDown = false
+        default:
+            break
+        }
     }
     override func update(_ currentTime: TimeInterval) {
         let indiecatorRadius: CGFloat = 10
@@ -78,17 +193,34 @@ class GameScene: SKScene {
         
         var dx : CGFloat = 0
         var dy : CGFloat = 0
-        if moveLeft {
-            dx-=1
-        }
-        if moveRight {
-            dx+=1
-        }
-        if moveUp {
-            dy+=1
-        }
-        if moveDown {
-            dy-=1
+        
+        let wasdActive = moveLeft || moveRight || moveUp || moveDown == true
+        if wasdActive {
+            if moveLeft {
+                dx-=1
+            }
+            if moveRight {
+                dx+=1
+            }
+            if moveUp {
+                dy+=1
+            }
+            if moveDown {
+                dy-=1
+            }
+        } else {
+            if arrowLeft {
+                dx-=1
+            }
+            if arrowRight {
+                dx+=1
+            }
+            if arrowUp {
+                dy+=1
+            }
+            if arrowDown {
+                dy-=1
+            }
         }
         let length = sqrt(dx * dx + dy * dy)
         
