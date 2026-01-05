@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE200A822F0C07D300DBBEAA /* StumpNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE200A812F0C07D300DBBEAA /* StumpNode.swift */; };
 		DEA9C25D2EEDD03100177415 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9C25C2EEDD03100177415 /* AppDelegate.swift */; };
 		DEA9C25F2EEDD03100177415 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DEA9C25E2EEDD03100177415 /* GameScene.sks */; };
 		DEA9C2612EEDD03100177415 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = DEA9C2602EEDD03100177415 /* Actions.sks */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE200A812F0C07D300DBBEAA /* StumpNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StumpNode.swift; sourceTree = "<group>"; };
 		DEA9C2592EEDD03100177415 /* Ball game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ball game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEA9C25C2EEDD03100177415 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DEA9C25E2EEDD03100177415 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				DEA9C25E2EEDD03100177415 /* GameScene.sks */,
 				DEA9C2602EEDD03100177415 /* Actions.sks */,
 				DEA9C2622EEDD03100177415 /* GameScene.swift */,
+				DE200A812F0C07D300DBBEAA /* StumpNode.swift */,
 				DEA9C2642EEDD03100177415 /* ViewController.swift */,
 				DEA9C2662EEDD03300177415 /* Assets.xcassets */,
 				DEA9C2682EEDD03300177415 /* Main.storyboard */,
@@ -143,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEA9C2652EEDD03100177415 /* ViewController.swift in Sources */,
+				DE200A822F0C07D300DBBEAA /* StumpNode.swift in Sources */,
 				DEA9C2632EEDD03100177415 /* GameScene.swift in Sources */,
 				DEA9C25D2EEDD03100177415 /* AppDelegate.swift in Sources */,
 			);
