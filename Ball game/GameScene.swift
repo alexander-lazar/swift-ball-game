@@ -89,47 +89,66 @@ class GameScene: SKScene {
         stump.position = CGPoint(x: 0, y: 0)
         addChild(stump)
         
-        let trunkWidth: CGFloat = 30
-        let trunkHeight: CGFloat = 20
+        let trunkRadius: CGFloat = 15
         
         let trunkSide = SKShapeNode(
-                rectOf: CGSize(width: trunkWidth, height: trunkHeight),
-                cornerRadius: 3
+            ellipseOf: CGSize(width: trunkRadius * 2, height: trunkRadius * 1.2)
         )
         
         trunkSide.fillColor = NSColor(
-            red: 0.45,
-            green: 0.3,
-            blue: 0.15,
+            red: 0.4,
+            green: 0.27,
+            blue: 0.13,
             alpha: 1.0
         )
         trunkSide.strokeColor = .clear
-        
-        trunkSide.position = CGPoint(x: 0, y: -10)
+        trunkSide.position = CGPoint(x: 0, y: -6)
         stump.addChild(trunkSide)
         
         let top = SKShapeNode(
-                rectOf: CGSize(width: trunkWidth, height: 10),
-                cornerRadius: 5
+            ellipseOf: CGSize(width: trunkRadius * 2, height: trunkRadius * 0.6)
         )
         
-        top.fillColor = trunkSide.fillColor
+        top.fillColor = NSColor(
+            red: 0.55,
+            green: 0.4,
+            blue: 0.25,
+            alpha: 1.0
+        )
         top.strokeColor = .clear
-        
-        top.position = CGPoint(x: 0, y: 2)
+        top.position = CGPoint(x: 0, y: 6)
         stump.addChild(top)
         
-        let rootWidth: CGFloat = 6
-        let rootHeight: CGFloat = 8
+        let rim = SKShapeNode(
+            ellipseOf: CGSize(width: trunkRadius * 2, height: 3)
+        )
         
-        for offsttX in [-10, 0, 10] {
+        rim.fillColor = NSColor(
+            red: 0.35,
+            green: 0.22,
+            blue: 0.1,
+            alpha: 1.0
+        )
+        
+        rim.strokeColor = .clear
+        rim.position = CGPoint(x: 0, y: 2)
+        
+        addChild(rim)
+        
+        let roots: [(x: CGFloat, y: CGFloat, rotation: CGFloat)] = [
+            (-8, -15, -0.25),
+            (1, -18, -0.0),
+            (10, -16, 0.25)
+        ]
+        
+        for rootData in roots {
             let root = SKShapeNode(
-                    rectOf: CGSize(width: rootWidth, height: rootHeight),
-                    cornerRadius: 2
+                    ellipseOf: CGSize(width: 6, height: 10)
             )
             root.fillColor = trunkSide.fillColor
             root.strokeColor = .clear
-            root.position = CGPoint(x: CGFloat(offsttX), y: -22)
+            root.position = CGPoint(x: rootData.x, y: rootData.y)
+            root.zRotation = rootData.rotation
             
             stump.addChild(root)
         }
