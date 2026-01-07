@@ -19,7 +19,7 @@ class StumpNode: SKNode {
     }
     
     private var layers: [Layer: SKSpriteNode] = [:]
-    
+    private var defaultColors: [Layer: NSColor] = [:]
     
     init(assets: [Layer: String] = [
         // Image names from the asset catalog
@@ -30,9 +30,8 @@ class StumpNode: SKNode {
         .roots: "roots"
     ]) {
         super.init()
-        
+
         let drawOrder: [Layer] = [ .roots, .trunk, .cut, .rings, .cracks ]
-        
         
         for (index, layerType) in drawOrder.enumerated() {
             let imageName = assets[layerType] ?? layerType.rawValue
@@ -45,7 +44,7 @@ class StumpNode: SKNode {
                 if let color = NSColor(named: "stump_\(imageName)") {
                     sprite.color = color
                     sprite.colorBlendFactor = 1.0
-    
+                    defaultColors[layerType] = color
                 }
                 
                 addChild(sprite)
@@ -59,5 +58,11 @@ class StumpNode: SKNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("Not Implemented")
+    }
+    
+    func setColor(color: NSColor? = nil, for layerType: Layer) {
+        if let layer = layers[layerType], let color = color ?? defaultColors[layerType] {
+            layer.color = color
+        }
     }
 }

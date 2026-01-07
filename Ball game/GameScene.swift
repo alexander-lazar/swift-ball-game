@@ -86,10 +86,14 @@ class GameScene: SKScene {
         
         addChild(spawnSquare)
         
-        let stump = StumpNode()
+        let stump1 = StumpNode()
+        stump1.position = CGPoint(x: 0, y: 0)
+        stump1.setColor(color: .fromHexCode("00FF00"), for: .rings)
+        addChild(stump1)
         
-        stump.position = CGPoint(x: 0, y: 0)
-        addChild(stump)
+        let stump2 = StumpNode()
+        stump2.position = CGPoint(x: 100, y: -100)
+        addChild(stump2)
         
     }
     override func keyDown(with event: NSEvent) {
