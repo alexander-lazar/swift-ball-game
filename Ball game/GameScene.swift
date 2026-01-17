@@ -88,11 +88,15 @@ class GameScene: SKScene {
         
         let stump1 = StumpNode()
         stump1.position = CGPoint(x: 0, y: 0)
-        stump1.setColor(color: .fromHexCode("00FF00"), for: .rings)
+        stump1.setColor(color: .fromHexCode("747441"), for: .rings)
+        stump1.setColor(color: .fromHexCode("B7B77A"), for: .cut)
+        stump1.setColor(color: .fromHexCode("BFBF81"), for: .cracks)
+        stump1.setColor(color: .fromHexCode("6F6F42"), for: .trunk)
+        stump1.setColor(color: .fromHexCode("4E4E25"), for: .roots)
         addChild(stump1)
         
         let stump2 = StumpNode()
-        stump2.position = CGPoint(x: 100, y: -100)
+        stump2.position = CGPoint(x: 250, y: -50)
         addChild(stump2)
         
     }

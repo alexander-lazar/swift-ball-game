@@ -11,10 +11,15 @@ import AppKit
 class StumpNode: SKNode {
     
     enum Layer: String, CaseIterable {
+        /// Stamm
         case trunk
+        /// Risse
         case cracks
+        /// Ringe
         case rings
+        /// Schnitt
         case cut
+        /// Wurzeln
         case roots
     }
     
@@ -22,7 +27,6 @@ class StumpNode: SKNode {
     private var defaultColors: [Layer: NSColor] = [:]
     
     init(assets: [Layer: String] = [
-        // Image names from the asset catalog
         .trunk: "trunk",
         .cracks: "cracks",
         .rings: "rings",
