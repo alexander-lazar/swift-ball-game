@@ -8,6 +8,11 @@
 import SpriteKit
 import AppKit
 
+struct PhysicsCategory {
+    static let none: UInt32 = 0
+    static let ball: UInt32 = 0x1 << 0
+    static let square: UInt32 = 0x1 << 1
+}
 class GameScene: SKScene {
     
     var ball: SKShapeNode!
@@ -34,7 +39,13 @@ class GameScene: SKScene {
         ball.strokeColor = .clear
         ball.position = CGPoint(x: 0, y: 0)
         ball.zPosition = 100
-
+        ball.physicsBody = SKPhysicsBody (circleOfRadius: radius)
+        ball.physicsBody?.affectedByGravity = false
+        ball.physicsBody?.allowsRotation = false
+        ball.physicsBody?.linearDamping = 0
+        ball.physicsBody?.categoryBitMask = PhysicsCategory.ball
+        ball.physicsBody?.collisionBitMask = PhysicsCategory.square
+        ball.physicsBody?.contactTestBitMask = PhysicsCategory.square
         addChild(ball)
         
         let indicatorRadius: CGFloat = 10
@@ -59,6 +70,15 @@ class GameScene: SKScene {
         )
         greenSquare.fillColor = indicator.fillColor
         greenSquare.strokeColor = .clear
+        greenSquare.physicsBody = SKPhysicsBody(
+            rectangleOf: CGSize(width: squareSize, height: squareSize)
+        )
+        greenSquare.physicsBody?.affectedByGravity = false
+        greenSquare.physicsBody?.allowsRotation = false
+        greenSquare.physicsBody?.isDynamic = false
+        greenSquare.physicsBody?.categoryBitMask = PhysicsCategory.square
+        greenSquare.physicsBody?.collisionBitMask = PhysicsCategory.ball
+        greenSquare.physicsBody?.contactTestBitMask = PhysicsCategory.ball
         
         let halfWidth = size.width / 2
         let halfHeight = size.height / 2
@@ -218,8 +238,10 @@ class GameScene: SKScene {
             dy /= length
         }
         let speed : CGFloat = 5
-        ball.position.x += dx * speed
-        ball.position.y += dy * speed
+        ball.physicsBody?.velocity = CGVector(
+                dx: dx * speed * 60,
+                dy: dy * speed * 60
+        )
         
         let isOutside =
         ball.position.x < -halfWidth ||
