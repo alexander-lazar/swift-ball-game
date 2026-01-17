@@ -99,6 +99,29 @@ class GameScene: SKScene {
         stump2.position = CGPoint(x: 250, y: -50)
         addChild(stump2)
         
+        let stump3 = StumpNode()
+        stump3.position = CGPoint(x: -500, y: -175)
+        addChild(stump3)
+        
+        let stump4 = StumpNode()
+        stump4.position = CGPoint(x: 550, y: -250)
+        addChild(stump4)
+        
+        let stump5 = StumpNode()
+        stump5.position = CGPoint(x: -432, y: 375)
+        addChild(stump5)
+        
+        let stump6 = StumpNode()
+        stump6.position = CGPoint(x: -32, y: 440)
+        addChild(stump6)
+        
+        let stump7 = StumpNode()
+        stump7.position = CGPoint(x: 625, y: -500)
+        addChild(stump7)
+        
+        let stump8 = StumpNode()
+        stump8.position = CGPoint(x: -675, y: -550)
+        addChild(stump8)
     }
     override func keyDown(with event: NSEvent) {
         switch event.charactersIgnoringModifiers?.lowercased() {
