@@ -43,9 +43,9 @@ class GameScene: SKScene {
         ball.physicsBody?.affectedByGravity = false
         ball.physicsBody?.allowsRotation = false
         ball.physicsBody?.linearDamping = 0
-        ball.physicsBody?.categoryBitMask = PhysicsCategory.ball
-        ball.physicsBody?.collisionBitMask = PhysicsCategory.square
-        ball.physicsBody?.contactTestBitMask = PhysicsCategory.square
+        ball.physicsBody?.friction = 0
+        ball.physicsBody?.restitution = 0
+        ball.physicsBody?.usesPreciseCollisionDetection = true
         addChild(ball)
         
         let indicatorRadius: CGFloat = 10
@@ -237,12 +237,36 @@ class GameScene: SKScene {
             dx /= length
             dy /= length
         }
-        let speed : CGFloat = 5
-        ball.physicsBody?.velocity = CGVector(
-                dx: dx * speed * 60,
-                dy: dy * speed * 60
-        )
         
+        let maxSpeed: CGFloat = 300
+        let targetVelocity = CGVector(
+            dx: dx * maxSpeed,
+            dy: dy * maxSpeed
+        )
+
+        guard let body = ball.physicsBody else { return }
+        let currentVelocity = body.velocity
+
+        let correction = CGVector(
+            dx: targetVelocity.dx - currentVelocity.dx,
+            dy: targetVelocity.dy - currentVelocity.dy
+        )
+
+        // huge acceleration to get an arcade feeling
+        let forceScale: CGFloat = body.mass * 60
+        
+        if dx == 0 && dy == 0 {
+            // full stop when no key is currently pressed
+            body.velocity = .zero
+        } else {
+            body.applyForce(
+                CGVector(
+                    dx: correction.dx * forceScale,
+                    dy: correction.dy * forceScale
+                )
+            )
+        }
+
         let isOutside =
         ball.position.x < -halfWidth ||
         ball.position.x > halfWidth ||
